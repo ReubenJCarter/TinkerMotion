@@ -22,6 +22,7 @@ install(TARGETS ${CMAKE_PROJECT_NAME}Lib
 
 set(GUISRCFILES
 	TinkerMotionGUI/Main.cpp
+	TinkerMotionGUI/MainWindow.cpp
 )
 
 add_executable(${CMAKE_PROJECT_NAME}GUI ${GUISRCFILES})
