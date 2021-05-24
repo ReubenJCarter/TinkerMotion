@@ -52,6 +52,10 @@ install(DIRECTORY ${QT_BIN_DIR}/../plugins/platforms
 		COMPONENT gui
 )
 
+#qtdarkmode
+set(Q_DARK_STYLE_SHEET_DIR ${CMAKE_CURRENT_SOURCE_DIR}/ext/QDarkStyleSheet-3.0.2 CACHE PATH "Path to QDarkStyleSheet")
+set(Q_DARK_STYLE_SHEET_QRC_FILE ${Q_DARK_STYLE_SHEET_DIR}/qdarkstyle/dark/style.qrc)	
+
 #cmake dirs
 include_directories(${CMAKE_BINARY_DIR})
 include_directories(src)

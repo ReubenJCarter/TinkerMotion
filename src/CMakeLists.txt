@@ -21,8 +21,16 @@ install(TARGETS ${CMAKE_PROJECT_NAME}Lib
 #gui
 
 set(GUISRCFILES
+
+	${Q_DARK_STYLE_SHEET_QRC_FILE}
+	
+	TinkerMotionGUI/CameraPanel.cpp
+	TinkerMotionGUI/ControlPanel.cpp
 	TinkerMotionGUI/Main.cpp
 	TinkerMotionGUI/MainWindow.cpp
+	TinkerMotionGUI/ProcessPanel.cpp
+	TinkerMotionGUI/ProjectPanel.cpp
+	TinkerMotionGUI/View3DPanel.cpp
 )
 
 add_executable(${CMAKE_PROJECT_NAME}GUI ${GUISRCFILES})
