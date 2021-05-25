@@ -50,10 +50,10 @@ MainWindow::MainWindow()
 	addDockWidget(Qt::LeftDockWidgetArea, projectPanel);
 	
 	ProcessPanel* processPanel = new ProcessPanel(); 
-	addDockWidget(Qt::RightDockWidgetArea, processPanel);
+	addDockWidget(Qt::LeftDockWidgetArea, processPanel);
 	
 	View3DPanel* view3DPanel = new View3DPanel(); 
-	addDockWidget(Qt::BottomDockWidgetArea, view3DPanel);
+	addDockWidget(Qt::RightDockWidgetArea, view3DPanel);
 
 	//
 	//Connect Actions

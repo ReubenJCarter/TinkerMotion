@@ -1,8 +1,8 @@
 #include "ProjectPanel.h"
 
 #include <QVBoxLayout>
-#include <QWidget>
 #include <QScrollArea>
+#include <QListView> 
 
 namespace TMGUI
 {
@@ -24,6 +24,27 @@ ProjectPanel::ProjectPanel()
 	scrollAreaBase->setWidgetResizable(true);
 	setWidget(scrollAreaBase);
 	layoutBase->setAlignment(Qt::AlignTop);
+	
+	//
+	//Set up take manager
+	//
+	
+    //List
+	QListView* hierarchyList = new QListView(); 
+
+	hierarchyList->setSelectionMode(QAbstractItemView::SingleSelection); //SingleSelection
+	//hierarchyList->setSelectionBehavior(QAbstractItemView::SelectRows); 
+	//hierarchyList->setDefaultDropAction(Qt::TargetMoveAction);
+
+
+	hierarchyList->setDragEnabled(true);
+	hierarchyList->setAcceptDrops(true);
+	hierarchyList->setDropIndicatorShown(true);
+	//hierarchyList->setMovement(QListView::Free);
+
+	//hierarchyListModel = new HierarchyListModel(); 
+	//hierarchyList->setModel(hierarchyListModel);
+	layoutBase->addWidget(hierarchyList); 
 }
 
 }
