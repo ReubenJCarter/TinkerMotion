@@ -8,7 +8,7 @@ add_library(${CMAKE_PROJECT_NAME}Lib SHARED ${LIBSRCFILES})
 
 generate_export_header(${CMAKE_PROJECT_NAME}Lib EXPORT_FILE_NAME ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}Lib_export.h)
 
-#target_link_libraries(${CMAKE_PROJECT_NAME}_Lib FreeImage)
+target_link_libraries(${CMAKE_PROJECT_NAME}Lib debug opencv_world452d optimized opencv_world452) 
 
 install(TARGETS ${CMAKE_PROJECT_NAME}Lib
 		ARCHIVE DESTINATION lib
@@ -19,7 +19,6 @@ install(TARGETS ${CMAKE_PROJECT_NAME}Lib
 
 
 #gui
-
 set(GUISRCFILES
 
 	${Q_DARK_STYLE_SHEET_QRC_FILE}

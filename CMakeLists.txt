@@ -52,6 +52,22 @@ install(DIRECTORY ${QT_BIN_DIR}/../plugins/platforms
 		COMPONENT gui
 )
 
+#Opencv
+set(OPENCV_ROOT_DIR C:/opencv/build CACHE PATH "Path to opencv")
+set(OPENCV_INC_DIR ${OPENCV_ROOT_DIR}/include)
+set(OPENCV_LIB_DIR ${OPENCV_ROOT_DIR}/x64/vc15/lib)
+set(OPENCV_BIN_DIR ${OPENCV_ROOT_DIR}/x64/vc15/bin)
+include_directories(${OPENCV_INC_DIR})
+link_directories(${OPENCV_LIB_DIR})
+
+install(FILES 
+			${OPENCV_BIN_DIR}/opencv_world452.dll
+			${OPENCV_BIN_DIR}/opencv_world452d.dll
+			${OPENCV_BIN_DIR}/opencv_videoio_ffmpeg452_64.dll
+		DESTINATION bin
+		COMPONENT MainLibrary
+)
+
 #qtdarkmode
 set(Q_DARK_STYLE_SHEET_DIR ${CMAKE_CURRENT_SOURCE_DIR}/ext/QDarkStyleSheet-3.0.2 CACHE PATH "Path to QDarkStyleSheet")
 set(Q_DARK_STYLE_SHEET_QRC_FILE ${Q_DARK_STYLE_SHEET_DIR}/qdarkstyle/dark/style.qrc)	
