@@ -32,22 +32,50 @@ add_custom_target(doc doxygen ${CMAKE_SOURCE_DIR}/Doxyfile WORKING_DIRECTORY ${C
 
 #QT
 set (CMAKE_PREFIX_PATH "C:\\Qt\\6.1.0\\msvc2019_64\\" CACHE PATH "cmake prefix path")
-find_package(Qt6 COMPONENTS Core Widgets Gui REQUIRED)
+find_package(Qt6 COMPONENTS Core Widgets Gui Concurrent Network OpenGL 3DAnimation 3DCore 3DExtras 3DRender 3DInput 3DLogic REQUIRED)
 
 set(QT_BIN_DIR ${Qt6_DIR}/../../../bin CACHE PATH "Path to QT binary files ")
 install(FILES ${QT_BIN_DIR}/Qt6Core.dll
 			  ${QT_BIN_DIR}/Qt6Gui.dll
 			  ${QT_BIN_DIR}/Qt6Widgets.dll
+			  ${QT_BIN_DIR}/Qt6Network.dll
+			  ${QT_BIN_DIR}/Qt6OpenGL.dll
+			  ${QT_BIN_DIR}/Qt63DAnimation.dll
+			  ${QT_BIN_DIR}/Qt63DCore.dll
+			  ${QT_BIN_DIR}/Qt6Concurrent.dll
+			  ${QT_BIN_DIR}/Qt63DExtras.dll
+			  ${QT_BIN_DIR}/Qt63DRender.dll
+			  ${QT_BIN_DIR}/Qt63DInput.dll
+			  ${QT_BIN_DIR}/Qt63DLogic.dll
 
 			  ${QT_BIN_DIR}/Qt6Cored.dll
 			  ${QT_BIN_DIR}/Qt6Guid.dll
 			  ${QT_BIN_DIR}/Qt6Widgetsd.dll
+			  ${QT_BIN_DIR}/Qt6Networkd.dll
+			   ${QT_BIN_DIR}/Qt6OpenGLd.dll
+			  ${QT_BIN_DIR}/Qt63DAnimationd.dll
+			  ${QT_BIN_DIR}/Qt63DCored.dll
+			  ${QT_BIN_DIR}/Qt6Concurrentd.dll
+			  ${QT_BIN_DIR}/Qt63DExtrasd.dll
+			  ${QT_BIN_DIR}/Qt63DRenderd.dll
+			  ${QT_BIN_DIR}/Qt63DInputd.dll
+			  ${QT_BIN_DIR}/Qt63DLogicd.dll
 
 		DESTINATION bin
 		COMPONENT gui
 )
 
 install(DIRECTORY ${QT_BIN_DIR}/../plugins/platforms
+		DESTINATION bin
+		COMPONENT gui
+)
+
+install(DIRECTORY ${QT_BIN_DIR}/../plugins/renderers
+		DESTINATION bin
+		COMPONENT gui
+)
+
+install(DIRECTORY ${QT_BIN_DIR}/../plugins/sceneparsers
 		DESTINATION bin
 		COMPONENT gui
 )

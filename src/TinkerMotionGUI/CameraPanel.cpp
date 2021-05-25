@@ -12,6 +12,8 @@
 #include <QSlider>
 #include <QPushButton>
 #include <QLabel>
+#include <QDialog>
+#include <QSpinBox>
 
 
 namespace TMGUI
@@ -57,7 +59,7 @@ CameraPanel::CameraPanel()
 		
 		QWidget* cameraDisplayTopBar = new QWidget();
 		cameraDisplayTopBar->setFixedHeight(20); 
-		cameraDisplayTopBar->setStyleSheet("background-color: #1e824c; border: 1px;");
+		cameraDisplayTopBar->setStyleSheet("background-color: #1e824c; border: 0px;");
 		baseElementLayout->addWidget(cameraDisplayTopBar);
 		
 		QHBoxLayout* topBarLayout = new QHBoxLayout(); 
@@ -71,12 +73,12 @@ CameraPanel::CameraPanel()
 		
 		QPushButton* removeButton = new QPushButton("X");
 		removeButton->setFixedHeight(18); 
-		removeButton->setStyleSheet("background-color: #0F0F0F; border: 0px;");
+		removeButton->setStyleSheet("QPushButton:hover { background-color: white } QPushButton{ border: 0px;}");
 		removeButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum); 
 		topBarLayout->addWidget(removeButton); 
 		
 		QLabel* cameraDisplay = new QLabel(); 
-		cameraDisplay->setStyleSheet("border: 0px solid black;");
+		cameraDisplay->setStyleSheet("border: 1px solid black;");
 		cameraDisplay->setContentsMargins(0, 0, 0, 0);
 		cameraDisplay->setMargin(0); 
 		cameraDisplay->setBackgroundRole(QPalette::Base);
@@ -84,6 +86,34 @@ CameraPanel::CameraPanel()
 		cameraDisplay->setMinimumSize(1, 1);
 		cameraDisplay->setPixmap(defaultPixmap);
 		baseElementLayout->addWidget(cameraDisplay);
+		
+		connect(removeButton, &QPushButton::clicked, [this, i]()
+		{
+			QDialog* dialog = new QDialog();
+			QVBoxLayout* vL = new QVBoxLayout(); 
+			dialog->setLayout(vL);
+			
+			vL->addWidget(new QLabel("Are you sure you want to remove this camera?"));
+			
+			QHBoxLayout* hL = new QHBoxLayout(); 
+			vL->addLayout(hL);
+			
+			QPushButton* okBut = new QPushButton("OK"); 
+			QPushButton* cancelBut = new QPushButton("Cancel"); 
+			hL->addWidget(cancelBut); 
+			hL->addWidget(okBut);
+			
+			connect(okBut, &QPushButton::clicked, dialog, &QDialog::accept);
+			connect(cancelBut, &QPushButton::clicked, dialog, &QDialog::reject);
+			
+			int result = dialog->exec();
+			
+			if(result == QDialog::Accepted)
+			{
+				std::cout << "CameraPanel:CameraRemoved:" << i << "\n"; 
+				emit CameraRemoved(i);
+			}
+		});
 	}
 	
 	
@@ -99,7 +129,7 @@ CameraPanel::CameraPanel()
 	
 	QSlider* slider = new QSlider(Qt::Horizontal); 
 	sliderLayout->addWidget(slider); 
-	QLabel* timeStamp = new QLabel("t:0"); 
+	QLabel* timeStamp = new QLabel("frame:0"); 
 	timeStamp->setFixedWidth(100); 
 	sliderLayout->addWidget(timeStamp); 
 	
@@ -107,10 +137,52 @@ CameraPanel::CameraPanel()
 	controlPanelLayout->addLayout(buttonLayout);
 
 	QPushButton* armButton = new QPushButton("Arm");
+	QPushButton* recordButton = new QPushButton("record");
+	QPushButton* stopRecordButton = new QPushButton("stop");
 	QPushButton* playButton = new QPushButton("Play");
-	QPushButton* addCameraButton = new QPushButton("Add Camera");
+	QPushButton* pauseButton = new QPushButton("Pause");
+	
 	buttonLayout->addWidget(armButton); 
 	buttonLayout->addWidget(playButton); 
+	
+	
+	QPushButton* addCameraButton = new QPushButton("Add Camera");
+	
+	connect(addCameraButton, &QPushButton::clicked, [this]()
+	{
+		QDialog* dialog = new QDialog();
+		QVBoxLayout* vL = new QVBoxLayout(); 
+		dialog->setLayout(vL);
+		
+		vL->addWidget(new QLabel("Choose a Camera id"));
+		
+		QSpinBox* idPicker = new QSpinBox();
+		idPicker->setRange(0, 2000);
+		idPicker->setSingleStep(1);
+		vL->addWidget(idPicker);
+		int id = 0;
+		connect(idPicker, QOverload<int>::of(&QSpinBox::valueChanged), [&id](int i){id = i;});  
+			
+		QHBoxLayout* hL = new QHBoxLayout(); 
+		vL->addLayout(hL);
+		
+		QPushButton* okBut = new QPushButton("OK"); 
+		QPushButton* cancelBut = new QPushButton("Cancel"); 
+		hL->addWidget(cancelBut); 
+		hL->addWidget(okBut);
+		
+		connect(okBut, &QPushButton::clicked, dialog, &QDialog::accept);
+		connect(cancelBut, &QPushButton::clicked, dialog, &QDialog::reject);
+		
+		int result = dialog->exec();
+		
+		if(result == QDialog::Accepted)
+		{
+			std::cout << "CameraPanel:CameraAdded:" << id << "\n"; 
+			emit CameraAdded(id);
+		}
+	});
+	
 	buttonLayout->addWidget(addCameraButton); 
 }
 

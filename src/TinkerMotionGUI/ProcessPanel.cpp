@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QScrollArea>
 #include <QGroupBox>
-#include <QRadioButton>
+#include <QCheckBox>
 #include <QPushButton>
 #include <QProgressBar>
 
@@ -40,7 +40,7 @@ ProcessPanel::ProcessPanel()
 	QVBoxLayout* personTrackLayout = new QVBoxLayout();
 	personTrackGroupBox->setLayout(personTrackLayout); 
 	
-	QRadioButton* personTrackEnabled = new QRadioButton("enabled"); 
+	QCheckBox* personTrackEnabled = new QCheckBox("enabled"); 
 	personTrackLayout->addWidget(personTrackEnabled);
 	
 	
@@ -54,7 +54,7 @@ ProcessPanel::ProcessPanel()
 	QVBoxLayout* arucoTrackLayout = new QVBoxLayout();
 	arucoTrackGroupBox->setLayout(arucoTrackLayout); 
 	
-	QRadioButton* arucoTrackEnabled = new QRadioButton("enabled"); 
+	QCheckBox* arucoTrackEnabled = new QCheckBox("enabled"); 
 	arucoTrackLayout->addWidget(arucoTrackEnabled);
 	
 	
@@ -68,13 +68,16 @@ ProcessPanel::ProcessPanel()
 	QVBoxLayout* sphereTrackLayout = new QVBoxLayout();
 	sphereTrackGroupBox->setLayout(sphereTrackLayout); 
 	
-	QRadioButton* sphereTrackEnabled = new QRadioButton("enabled"); 
+	QCheckBox* sphereTrackEnabled = new QCheckBox("enabled"); 
 	sphereTrackLayout->addWidget(sphereTrackEnabled);
 	
 	
 	//
 	//Running
 	//
+	
+	QCheckBox* runLive = new QCheckBox("Run Processes Live"); 
+	layoutBase->addWidget(runLive);
 	
 	QPushButton* processButton = new QPushButton("Process"); 
 	layoutBase->addWidget(processButton); 

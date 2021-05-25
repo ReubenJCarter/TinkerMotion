@@ -33,7 +33,19 @@ set(GUISRCFILES
 
 add_executable(${CMAKE_PROJECT_NAME}GUI ${GUISRCFILES})
 
-target_link_libraries(${CMAKE_PROJECT_NAME}GUI Qt6::Core Qt6::Widgets Qt6::Gui)
+target_link_libraries(${CMAKE_PROJECT_NAME}GUI 
+	Qt6::Core 
+	Qt6::Widgets 
+	Qt6::Gui 
+	Qt6::Concurrent
+	Qt6::Network
+	Qt6::OpenGL
+	Qt6::3DAnimation
+	Qt6::3DCore
+    Qt6::3DExtras
+    Qt6::3DRender
+    Qt6::3DInput
+	Qt6::3DLogic)
 target_link_libraries(${CMAKE_PROJECT_NAME}GUI ${CMAKE_PROJECT_NAME}Lib)
 
 install(TARGETS ${CMAKE_PROJECT_NAME}GUI 

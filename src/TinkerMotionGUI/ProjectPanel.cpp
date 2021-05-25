@@ -1,5 +1,6 @@
 #include "ProjectPanel.h"
 
+#include <QGroupBox>
 #include <QVBoxLayout>
 #include <QScrollArea>
 #include <QListView> 
@@ -25,6 +26,11 @@ ProjectPanel::ProjectPanel()
 	setWidget(scrollAreaBase);
 	layoutBase->setAlignment(Qt::AlignTop);
 	
+	QGroupBox* takesGroupBox = new QGroupBox("takes");
+	layoutBase->addWidget(takesGroupBox);
+	QVBoxLayout* takesLayout = new QVBoxLayout();
+	takesGroupBox->setLayout(takesLayout);
+	
 	//
 	//Set up take manager
 	//
@@ -44,7 +50,7 @@ ProjectPanel::ProjectPanel()
 
 	//hierarchyListModel = new HierarchyListModel(); 
 	//hierarchyList->setModel(hierarchyListModel);
-	layoutBase->addWidget(hierarchyList); 
+	takesLayout->addWidget(hierarchyList); 
 }
 
 }

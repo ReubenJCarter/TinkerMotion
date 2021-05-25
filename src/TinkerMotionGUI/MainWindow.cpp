@@ -34,6 +34,7 @@ MainWindow::MainWindow()
 	
 	QMenu* fileMenu = menuBar()->addMenu("File");
 	QAction* saveAction = fileMenu->addAction("Save Project");
+	QAction* saveAsAction = fileMenu->addAction("Save Project As");
 	QAction* loadAction = fileMenu->addAction("Load Project");
 	
 	
@@ -61,6 +62,11 @@ MainWindow::MainWindow()
 	
 	//Save and load actions
 	connect(saveAction, &QAction::triggered, [this]()
+	{
+		
+	});
+	
+	connect(saveAsAction, &QAction::triggered, [this]()
 	{
 		QString folderLocation = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation); 
 		QString qstr = QFileDialog::getSaveFileName(this, tr("Open Project"), folderLocation, tr("Project File (*.tmproj)"));

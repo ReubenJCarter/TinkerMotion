@@ -20,6 +20,10 @@ class CameraPanel: public QWidget
 	public:
 		CameraPanel();
 		void SetFrame(int cameraInx, cv::Mat img);
+		
+	signals:
+		void CameraRemoved(int inx);  
+		void CameraAdded(int cameraId);
 };
 
 }
