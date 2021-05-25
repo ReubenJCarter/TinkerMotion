@@ -57,7 +57,7 @@ CameraPanel::CameraPanel()
 		
 		QWidget* cameraDisplayTopBar = new QWidget();
 		cameraDisplayTopBar->setFixedHeight(20); 
-		cameraDisplayTopBar->setStyleSheet("background-color: #1e824c; border: 1px solid black;");
+		cameraDisplayTopBar->setStyleSheet("background-color: #1e824c; border: 1px;");
 		baseElementLayout->addWidget(cameraDisplayTopBar);
 		
 		QHBoxLayout* topBarLayout = new QHBoxLayout(); 
@@ -71,7 +71,7 @@ CameraPanel::CameraPanel()
 		
 		QPushButton* removeButton = new QPushButton("X");
 		removeButton->setFixedHeight(18); 
-		removeButton->setStyleSheet(".QWidget{background-color: #0F0F0F; border: 0px;}");
+		removeButton->setStyleSheet("background-color: #0F0F0F; border: 0px;");
 		removeButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum); 
 		topBarLayout->addWidget(removeButton); 
 		
