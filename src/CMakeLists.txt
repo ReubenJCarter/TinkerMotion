@@ -24,7 +24,6 @@ set(GUISRCFILES
 	${Q_DARK_STYLE_SHEET_QRC_FILE}
 	
 	TinkerMotionGUI/CameraPanel.cpp
-	TinkerMotionGUI/ControlPanel.cpp
 	TinkerMotionGUI/Main.cpp
 	TinkerMotionGUI/MainWindow.cpp
 	TinkerMotionGUI/ProcessPanel.cpp

@@ -6,8 +6,13 @@
 #include <algorithm>
 
 #include <QGridLayout>
-#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QColor>
+#include <QSlider>
+#include <QPushButton>
+#include <QLabel>
+
 
 namespace TMGUI
 {
@@ -15,8 +20,11 @@ namespace TMGUI
 	
 CameraPanel::CameraPanel()
 {
-	QGridLayout* layoutBase = new QGridLayout();
+	QVBoxLayout* layoutBase = new QVBoxLayout();
 	setLayout(layoutBase); 
+	
+	QGridLayout* cameraGridLayout = new QGridLayout();
+	layoutBase->addLayout(cameraGridLayout); 
 	
 	QPixmap defaultPixmap(600, 400);
 	defaultPixmap.fill( QColor(128, 128, 128, 255) );
@@ -31,7 +39,7 @@ CameraPanel::CameraPanel()
 	for(int i = 0; i < cameraCount; i++)
 	{		
 		QWidget* baseElement = new QWidget();
-		layoutBase->addWidget(baseElement, i / C, i % C); 
+		cameraGridLayout->addWidget(baseElement, i / C, i % C); 
 		
 		QVBoxLayout* baseElementLayout = new QVBoxLayout(); 
 		baseElementLayout->setAlignment(Qt::AlignTop);
@@ -49,6 +57,27 @@ CameraPanel::CameraPanel()
 		cameraDisplay->setPixmap(defaultPixmap);
 		baseElementLayout->addWidget(cameraDisplay);
 	}
+	
+	
+	QVBoxLayout* controlPanelLayout = new QVBoxLayout();
+	layoutBase->addLayout(controlPanelLayout);
+	
+	QHBoxLayout* sliderLayout = new QHBoxLayout(); 
+	controlPanelLayout->addLayout(sliderLayout); 
+	
+	QSlider* slider = new QSlider(Qt::Horizontal); 
+	sliderLayout->addWidget(slider); 
+	QLabel* timeStamp = new QLabel("t:0"); 
+	timeStamp->setFixedWidth(100); 
+	sliderLayout->addWidget(timeStamp); 
+	
+	QHBoxLayout* buttonLayout = new QHBoxLayout(); 
+	controlPanelLayout->addLayout(buttonLayout);
+
+	QPushButton* armButton = new QPushButton("Arm");
+	QPushButton* playButton = new QPushButton("Play");
+	buttonLayout->addWidget(armButton); 
+	buttonLayout->addWidget(playButton); 
 }
 
 void CameraPanel::SetFrame(int cameraInx, cv::Mat img)

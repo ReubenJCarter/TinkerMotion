@@ -11,7 +11,6 @@
 #include <iostream>
 #include <string>
 
-#include "ControlPanel.h"
 #include "CameraPanel.h"
 #include "ProjectPanel.h"
 #include "ProcessPanel.h"
@@ -49,9 +48,6 @@ MainWindow::MainWindow()
 	//dockables
 	ProjectPanel* projectPanel = new ProjectPanel(); 
 	addDockWidget(Qt::LeftDockWidgetArea, projectPanel);
-	
-	ControlPanel* controlPanel = new ControlPanel(); 
-	addDockWidget(Qt::BottomDockWidgetArea, controlPanel);
 	
 	ProcessPanel* processPanel = new ProcessPanel(); 
 	addDockWidget(Qt::RightDockWidgetArea, processPanel);
