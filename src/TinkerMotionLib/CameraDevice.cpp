@@ -5,98 +5,110 @@
 
 namespace TMLib
 {
-	class CameraDevice::Internal
-	{
-		public:
-			cv::VideoCapture cap;
-			cv::Mat frame;
-			bool validFrame; 
-	}; 
 	
-	CameraDevice::CameraDevice()
-	{
-		internal = new Internal();
-		internal->validFrame = false;
-	}
+class CameraDevice::Internal
+{
+	public:
+		cv::VideoCapture cap;
+		cv::Mat frame;
+		bool validFrame; 
+		int deviceId; 
+}; 
+
+CameraDevice::CameraDevice()
+{
+	internal = new Internal();
+	internal->validFrame = false;
+	internal->deviceId = -1;
+}
+
+CameraDevice::~CameraDevice()
+{
+	delete internal; 
+}	
+
+bool CameraDevice::Open(int deviceId)
+{
+	int apiId = cv::CAP_ANY;      // 0 = autodetect default API		
+	internal->cap.open(deviceId, apiId);
 	
-    CameraDevice::~CameraDevice()
+	if (!internal->cap.isOpened()) 
 	{
-		delete internal; 
-	}	
-
-	bool CameraDevice::Open(int deviceID)
-	{
-		int apiID = cv::CAP_ANY;      // 0 = autodetect default API		
-		internal->cap.open(deviceID, apiID);
-		
-		if (!internal->cap.isOpened()) 
-		{
-			std::cerr << "CameraDevice:Unable to open camera FAIL \n";
-			return false;
-		}
-		return true; 
-	}
-
-	bool CameraDevice::Close()
-	{
-		if (!internal->cap.isOpened()) 
-		{
-			std::cerr << "CameraDevice:Unable to close camera because it was never open FAIL \n";
-			return false;
-		}
-		internal->cap.release(); 
-		return true; 
+		std::cerr << "CameraDevice:Unable to open camera FAIL \n";
+		return false;
 	}
 	
-	bool CameraDevice::CaptureFrame()
-	{
-		if( !internal->cap.isOpened() )
-		{
-			std::cerr << "CameraDevice:isOpened FAIL\n";
-			internal->validFrame = false; 
-			return false; 
-		}
-		if ( !internal->cap.grab() ) 
-		{
-			std::cerr << "CameraDevice:frame grabbed FAIL\n";
-			internal->validFrame = false; 
-			return false; 
-		}
-		internal->validFrame = true; 
-		return true; 
-	}
-
-	bool CameraDevice::DecodeFrame()
-	{
-		if( !internal->validFrame )
-		{
-			std::cerr << "CameraDevice:validFrame FAIL\n";
-			return false; 
-		}
-		if ( !internal->cap.retrieve(internal->frame) )
-		{
-			std::cerr << "CameraDevice:DecodeFrame FAIL\n";
-			return false; 
-		}
-		return true; 
-	}
+	internal->deviceId = deviceId; 
 	
-	bool CameraDevice::IsOpen()
-	{
-		return internal->cap.isOpened(); 
-	}
+	return true; 
+}
 
-	cv::Mat CameraDevice::GetLatestFrame()
+bool CameraDevice::Close()
+{
+	if (!internal->cap.isOpened()) 
 	{
-		if(!internal->cap.isOpened())
-			return cv::Mat(); 
-		
-		if(!internal->validFrame)
-			return cv::Mat();
-		
-		if(internal->frame.cols == 0 || internal->frame.rows == 0)
-			return cv::Mat(); 
-		
-		return internal->frame; 
+		std::cerr << "CameraDevice:Unable to close camera because it was never open FAIL \n";
+		return false;
 	}
+	internal->cap.release(); 
+	return true; 
+}
+
+bool CameraDevice::CaptureFrame()
+{
+	if( !internal->cap.isOpened() )
+	{
+		std::cerr << "CameraDevice:isOpened FAIL\n";
+		internal->validFrame = false; 
+		return false; 
+	}
+	if ( !internal->cap.grab() ) 
+	{
+		std::cerr << "CameraDevice:frame grabbed FAIL\n";
+		internal->validFrame = false; 
+		return false; 
+	}
+	internal->validFrame = true; 
+	return true; 
+}
+
+bool CameraDevice::DecodeFrame()
+{
+	if( !internal->validFrame )
+	{
+		std::cerr << "CameraDevice:validFrame FAIL\n";
+		return false; 
+	}
+	if ( !internal->cap.retrieve(internal->frame) )
+	{
+		std::cerr << "CameraDevice:DecodeFrame FAIL\n";
+		return false; 
+	}
+	return true; 
+}
+
+bool CameraDevice::IsOpen()
+{
+	return internal->cap.isOpened(); 
+}
+
+int CameraDevice::GetDeviceId()
+{
+	return internal->deviceId; 
+}
+
+cv::Mat CameraDevice::GetLatestFrame()
+{
+	if(!internal->cap.isOpened())
+		return cv::Mat(); 
+	
+	if(!internal->validFrame)
+		return cv::Mat();
+	
+	if(internal->frame.cols == 0 || internal->frame.rows == 0)
+		return cv::Mat(); 
+	
+	return internal->frame; 
+}
+
 }

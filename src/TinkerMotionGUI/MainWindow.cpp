@@ -33,6 +33,7 @@ MainWindow::MainWindow()
 	//
 	
 	QMenu* fileMenu = menuBar()->addMenu("File");
+	QAction* newAction = fileMenu->addAction("New Project");
 	QAction* saveAction = fileMenu->addAction("Save Project");
 	QAction* saveAsAction = fileMenu->addAction("Save Project As");
 	QAction* loadAction = fileMenu->addAction("Load Project");
@@ -60,7 +61,12 @@ MainWindow::MainWindow()
 	//Connect Actions
 	//
 	
-	//Save and load actions
+	//New Save and load actions
+	connect(newAction, &QAction::triggered, [this]()
+	{
+		
+	});
+	
 	connect(saveAction, &QAction::triggered, [this]()
 	{
 		

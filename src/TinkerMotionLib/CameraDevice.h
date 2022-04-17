@@ -16,11 +16,12 @@ class TINKERMOTIONLIB_EXPORT CameraDevice
 	public:
 		CameraDevice(); 
         ~CameraDevice(); 
-		bool Open(int deviceID);
+		bool Open(int deviceId);
 		bool Close(); 
 		bool CaptureFrame(); 
 		bool DecodeFrame(); 
 		bool IsOpen(); 
+		int GetDeviceId(); 
 		cv::Mat GetLatestFrame(); 
 };
 	
